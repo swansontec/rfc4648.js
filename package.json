@@ -13,13 +13,16 @@
     "rollup-plugin-buble": "^0.15.0",
     "standard": "^10.0.1"
   },
+  "files": [
+    "lib/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:swansontec/rfc4648.js.git"
   },
   "scripts": {
     "build": "buble -i src --o lib --no modules && rollup -c",
-    "lint": "standard '*.js' 'src/**/*.js'",
+    "lint": "standard '*.js' 'src/**/*.js' 'test/**/*.js'",
     "prepublish": "npm run lint && npm run build",
     "test": "npm run lint && rollup -c && nyc mocha"
   }
