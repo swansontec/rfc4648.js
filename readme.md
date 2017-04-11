@@ -8,15 +8,19 @@ This library implements encoding and decoding for the data formats specified in 
 * base32hex
 * base16
 
-Each encoding has a simple API inspired by the built-in `JSON` object:
+Each encoding has a simple API inspired by Javascript's built-in `JSON` object:
 
-    const base32 = require('rfc4648').base32
+    const { base32 } = require('rfc4648')
     // or import { base32 } from 'rfc4648'
 
-    base32.stringify([57, 22, 183]) // 'HELLO==='
-    base32.parse('HELLO===') // [57, 22, 183]
+    base32.parse('HELLO===') // -> [57, 22, 183]
+    base32.stringify([57, 22, 183]) // -> 'HELLO==='
 
 The library has tree-shaking support, so tools like [rollup.js](https://rollupjs.org/) or [Webpack 2](https://webpack.js.org/) can automatically trim away any encodings you don't use.
+
+* Zero external dependencies
+* 100% test coverage
+* 0.9K minified + gzip (full library, no tree shaking)
 
 ## API details
 
