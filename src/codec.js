@@ -68,7 +68,7 @@ export function parse (string, encoding, opts = {}) {
   return out
 }
 
-export function stringify (data, encoding, opts = {}) {
+export function stringify (data, encoding) {
   let out = ''
 
   let bits = 0 // Number of bits currently in the buffer
