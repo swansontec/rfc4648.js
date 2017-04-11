@@ -1,4 +1,4 @@
-# rfc4648
+# rfc4648.js
 
 This library implements encoding and decoding for the data formats specified in [rfc4648](https://tools.ietf.org/html/rfc4648):
 
@@ -20,9 +20,24 @@ The library has tree-shaking support, so tools like [rollup.js](https://rollupjs
 
 ## API details
 
-The `stringify` methods each take array-like object of bytes and return a string.
+The library provides the following top-level modules:
 
-The `parse` methods each take a string and return an `Array` of bytes. If you would like a different return type, such as `Uint8Array`, pass its constructor in the second argument:
+* `base64`
+* `base64url`
+* `base32`
+* `base32hex`
+* `base16`
+* `codec`
+
+Each module exports a `parse` and `stringify` function.
+
+### const string = baseXX.stringify(data)
+
+Each `stringify` function takes array-like object of bytes and returns a string.
+
+### const data = baseXX.parse(string, opts)
+
+Each `parse` function takes a string and returns an `Array` of bytes. If you would like a different return type, such as `Uint8Array`, pass its constructor in the second argument:
 
     base64.parse('AOk=', { out: Uint8Array })
 
@@ -32,7 +47,9 @@ If you pass the option `{ loose: true }` in the second parameter, the parser wil
 
     base64.parse('AOk', { loose: true }) // No error
 
-To define your own encoding, use the `codec` module:
+### Custom encodings
+
+To define your own encodings, use the `codec` module:
 
     const codec = require('rfc4648').codec
 
@@ -44,4 +61,4 @@ To define your own encoding, use the `codec` module:
     codec.stringify([220, 10], myEncoding) // '670050=='
     codec.parse('670050', myEncoding, { loose: true }) // [ 220, 10 ]
 
-The `encoding` structure should have two members, a `chars` member giving the alphabet and a `bits` member giving the bits per character. The `codec.parse` method will extend this with a third member, `codes`, the first time it's called. The `codes` member is a lookup table mapping from characters back to numbers.
+The `encoding` structure should have two members, a `chars` member giving the alphabet and a `bits` member giving the bits per character. The `codec.parse` function will extend this with a third member, `codes`, the first time it's called. The `codes` member is a lookup table mapping from characters back to numbers.
