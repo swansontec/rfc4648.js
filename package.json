@@ -5,8 +5,10 @@
   "description": "Encoding and decoding for base64, base32, base16, and friends",
   "license": "MIT",
   "main": "lib/index.cjs.js",
-  "module": "lib/index.es6.js",
+  "module": "lib/index.js",
   "devDependencies": {
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0",
     "rollup": "^0.41.6",
     "rollup-plugin-buble": "^0.15.0",
     "standard": "^10.0.1"
@@ -14,6 +16,7 @@
   "scripts": {
     "build": "buble -i src --o lib --no modules && rollup -c",
     "lint": "standard '*.js' 'src/**/*.js'",
-    "prepublish": "npm run lint && npm run build"
+    "prepublish": "npm run lint && npm run build",
+    "test": "npm run lint && rollup -c && nyc mocha"
   }
 }
