@@ -1,6 +1,6 @@
 {
   "name": "rfc4648",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "author": "William Swanson",
   "description": "Encoding and decoding for base64, base32, base16, and friends",
   "license": "MIT",
