@@ -26,7 +26,7 @@ export function parse (string, encoding, opts = {}) {
 
   // Allocate the output:
   const constructor = opts.out != null ? opts.out : Array
-  const out = new constructor(end * encoding.bits / 8 | 0)
+  const out = new constructor((end * encoding.bits / 8) | 0)
 
   // Parse the data:
   let bits = 0 // Number of bits currently in the buffer
@@ -41,17 +41,17 @@ export function parse (string, encoding, opts = {}) {
 
     // Append the bits to the buffer:
     bits += encoding.bits
-    buffer = buffer << encoding.bits | value
+    buffer = (buffer << encoding.bits) | value
 
     // Write out some bits if the buffer has a byte's worth:
     if (bits >= 8) {
       bits -= 8
-      out[written++] = 0xff & buffer >> bits
+      out[written++] = 0xff & (buffer >> bits)
     }
   }
 
   // Verify that we have received just enough bits:
-  const leftover = 0xff & buffer << 8 - bits
+  const leftover = 0xff & (buffer << (8 - bits))
   if (bits >= encoding.bits || leftover) {
     throw new SyntaxError('Unexpected end of data')
   }
@@ -60,7 +60,7 @@ export function parse (string, encoding, opts = {}) {
   if (!opts.loose) {
     const maxPad = 8 * encoding.bits / gcd(8, encoding.bits)
     const padding = (string.length - end) * encoding.bits
-    if (padding >= maxPad || padding + bits & 7) {
+    if (padding >= maxPad || (padding + bits) & 7) {
       throw new SyntaxError('Invalid padding')
     }
   }
@@ -76,23 +76,23 @@ export function stringify (data, encoding) {
   const mask = (1 << encoding.bits) - 1
   for (let i = 0; i < data.length; ++i) {
     // Slurp data into the buffer:
-    buffer = buffer << 8 | 0xff & data[i]
+    buffer = (buffer << 8) | (0xff & data[i])
     bits += 8
 
     // Write out as much as we can:
     while (bits > encoding.bits) {
       bits -= encoding.bits
-      out += encoding.chars[mask & buffer >> bits]
+      out += encoding.chars[mask & (buffer >> bits)]
     }
   }
 
   // Partial character:
   if (bits) {
-    out += encoding.chars[mask & buffer << encoding.bits - bits]
+    out += encoding.chars[mask & (buffer << (encoding.bits - bits))]
   }
 
   // Add padding characters until we hit a byte boundary:
-  while (out.length * encoding.bits & 7) {
+  while ((out.length * encoding.bits) & 7) {
     out += '='
   }
 
