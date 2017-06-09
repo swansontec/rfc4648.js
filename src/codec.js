@@ -24,9 +24,7 @@ export function parse (string, encoding, opts = {}) {
   }
 
   // Allocate the output:
-  const out = new (opts.out != null ? opts.out : Uint8Array)(
-    (end * encoding.bits / 8) | 0
-  )
+  const out = new (opts.out || Uint8Array)((end * encoding.bits / 8) | 0)
 
   // Parse the data:
   let bits = 0 // Number of bits currently in the buffer
