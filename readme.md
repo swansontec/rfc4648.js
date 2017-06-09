@@ -20,7 +20,7 @@ The library has tree-shaking support, so tools like [rollup.js](https://rollupjs
 
 * Zero external dependencies
 * 100% test coverage
-* 0.9K minified + gzip (full library, no tree shaking)
+* 0.8K minified + gzip (full library, no tree shaking)
 
 ## API details
 

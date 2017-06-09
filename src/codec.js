@@ -1,27 +1,26 @@
-/**
- * Flips an alphabet into a character lookup table.
- */
-function makeCodes (chars) {
-  const out = {}
-  for (let i = 0; i < chars.length; ++i) {
-    out[chars.charAt(i)] = i
-  }
-  return out
-}
-
-function gcd (a, b) {
-  return b === 0 ? a : gcd(b, a % b)
-}
-
 export function parse (string, encoding, opts = {}) {
+  // Build the character lookup table:
   if (encoding.codes == null) {
-    encoding.codes = makeCodes(encoding.chars)
+    encoding.codes = {}
+    for (let i = 0; i < encoding.chars.length; ++i) {
+      encoding.codes[encoding.chars[i]] = i
+    }
+  }
+
+  // The string must have a whole number of bytes:
+  if (!opts.loose && (string.length * encoding.bits) & 7) {
+    throw new SyntaxError('Invalid padding')
   }
 
   // Count the padding bytes:
   let end = string.length
-  while (string.charAt(end - 1) === '=') {
+  while (string[end - 1] === '=') {
     --end
+
+    // If we get a whole number of bytes, there is too much padding:
+    if (!opts.loose && (((string.length - end) * encoding.bits) & 7) === 0) {
+      throw new SyntaxError('Invalid padding')
+    }
   }
 
   // Allocate the output:
@@ -34,14 +33,14 @@ export function parse (string, encoding, opts = {}) {
   let written = 0 // Next byte to write
   for (let i = 0; i < end; ++i) {
     // Read one character from the string:
-    const value = encoding.codes[string.charAt(i)]
+    const value = encoding.codes[string[i]]
     if (value === void 0) {
-      throw new SyntaxError('Invalid character ' + string.charAt(i))
+      throw new SyntaxError('Invalid character ' + string[i])
     }
 
     // Append the bits to the buffer:
-    bits += encoding.bits
     buffer = (buffer << encoding.bits) | value
+    bits += encoding.bits
 
     // Write out some bits if the buffer has a byte's worth:
     if (bits >= 8) {
@@ -51,29 +50,19 @@ export function parse (string, encoding, opts = {}) {
   }
 
   // Verify that we have received just enough bits:
-  const leftover = 0xff & (buffer << (8 - bits))
-  if (bits >= encoding.bits || leftover) {
+  if (bits >= encoding.bits || 0xff & (buffer << (8 - bits))) {
     throw new SyntaxError('Unexpected end of data')
-  }
-
-  // Verify padding:
-  if (!opts.loose) {
-    const maxPad = 8 * encoding.bits / gcd(8, encoding.bits)
-    const padding = (string.length - end) * encoding.bits
-    if (padding >= maxPad || (padding + bits) & 7) {
-      throw new SyntaxError('Invalid padding')
-    }
   }
 
   return out
 }
 
 export function stringify (data, encoding) {
+  const mask = (1 << encoding.bits) - 1
   let out = ''
 
   let bits = 0 // Number of bits currently in the buffer
   let buffer = 0 // Bits waiting to be written out, MSB first
-  const mask = (1 << encoding.bits) - 1
   for (let i = 0; i < data.length; ++i) {
     // Slurp data into the buffer:
     buffer = (buffer << 8) | (0xff & data[i])
