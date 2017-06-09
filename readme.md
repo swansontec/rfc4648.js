@@ -41,11 +41,12 @@ Each `stringify` function takes array-like object of bytes and returns a string.
 
 ### const data = baseXX.parse(string, opts)
 
-Each `parse` function takes a string and returns an `Array` of bytes. If you would like a different return type, such as `Uint8Array`, pass its constructor in the second argument:
+Each `parse` function takes a string and returns a `Uint8Array` of bytes. If you would like a different return type, such as plain `Array` or a Node.js `Buffer`, pass its constructor in the second argument:
 
-    base64.parse('AOk=', { out: Uint8Array })
+    base64.parse('AOk=', { out: Array })
+    base64.parse('AOk=', { out: Buffer.allocUnsafe })
 
-The constructor will be called with `new`, and should accept a single integer for the length.
+The constructor will be called with `new`, and should accept a single integer for the output length, in bytes.
 
 If you pass the option `{ loose: true }` in the second parameter, the parser will not validate padding characters (`=`):
 

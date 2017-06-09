@@ -171,4 +171,16 @@ describe('base16', function () {
   it('should decode lowercase characters', function () {
     assert.deepEqual(rfc4648.base16.parse('abcdef'), [0xab, 0xcd, 0xef])
   })
+
+  it('should work return Uint8Array by default', function () {
+    const out = rfc4648.base16.parse('abcdef')
+    assert(out instanceof Uint8Array)
+    assert.deepEqual(out, [0xab, 0xcd, 0xef])
+  })
+
+  it('should work with Node.js Buffers', function () {
+    const out = rfc4648.base16.parse('abcdef', { out: Buffer.allocUnsafe })
+    assert(out instanceof Buffer)
+    assert.deepEqual(out, [0xab, 0xcd, 0xef])
+  })
 })
