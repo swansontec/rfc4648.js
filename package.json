@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "description": "Encoding and decoding for base64, base32, base16, and friends",
   "license": "MIT",
+  "keywords": [
+    "base16",
+    "base32",
+    "base32hex",
+    "base64",
+    "base64url",
+    "hex",
+    "Uint8Array"
+  ],
   "author": "William Swanson",
   "files": [
     "lib/*"
