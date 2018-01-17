@@ -89,7 +89,9 @@ const failVectors = [
   ['base16', '00=', true],
   // Illegal characters:
   ['base32', 'A1======'],
-  ['base32', 'Aa======'],
+  ['base32', 'A9======'],
+  ['base32', 'Aa======', true],
+  ['base32', 'He1l0===', true],
   // Non-byte ending:
   ['base32', 'A======='],
   ['base32', 'A7======'],
@@ -182,5 +184,14 @@ describe('base16', function () {
     const out = rfc4648.base16.parse('abcdef', { out: Buffer.allocUnsafe })
     assert(out instanceof Buffer)
     assert.deepEqual(out, [0xab, 0xcd, 0xef])
+  })
+})
+
+describe('base32', function () {
+  it('should fix common typos in loose mode', function () {
+    assert.deepEqual(
+      rfc4648.base32.parse('He1l0===', { loose: true }),
+      rfc4648.base32.parse('HELLO===')
+    )
   })
 })

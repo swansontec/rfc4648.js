@@ -51,6 +51,10 @@ If you pass the option `{ loose: true }` in the second parameter, the parser wil
 
     base64.parse('AOk', { loose: true }) // No error
 
+The base32 codec will also fix common typo characters in loose mode:
+
+    base64.parse('He1l0==', { loose: true }) // Auto-corrects as 'HELLO==='
+
 ### Custom encodings
 
 To define your own encodings, use the `codec` module:
