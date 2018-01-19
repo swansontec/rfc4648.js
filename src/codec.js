@@ -1,6 +1,6 @@
 export function parse (string, encoding, opts = {}) {
   // Build the character lookup table:
-  if (encoding.codes == null) {
+  if (!encoding.codes) {
     encoding.codes = {}
     for (let i = 0; i < encoding.chars.length; ++i) {
       encoding.codes[encoding.chars[i]] = i
@@ -18,7 +18,7 @@ export function parse (string, encoding, opts = {}) {
     --end
 
     // If we get a whole number of bytes, there is too much padding:
-    if (!opts.loose && (((string.length - end) * encoding.bits) & 7) === 0) {
+    if (!opts.loose && !(((string.length - end) * encoding.bits) & 7)) {
       throw new SyntaxError('Invalid padding')
     }
   }
