@@ -14,7 +14,9 @@
   ],
   "author": "William Swanson",
   "files": [
-    "lib/*"
+    "CHANGELOG.md",
+    "lib/*",
+    "README.md"
   ],
   "main": "lib/index.cjs.js",
   "module": "lib/index.js",
