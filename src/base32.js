@@ -9,10 +9,10 @@ export function parse (string, opts = {}) {
   return codec.parse(
     opts.loose
       ? string
-          .toUpperCase()
-          .replace(/0/g, 'O')
-          .replace(/1/g, 'L')
-          .replace(/8/g, 'B')
+        .toUpperCase()
+        .replace(/0/g, 'O')
+        .replace(/1/g, 'L')
+        .replace(/8/g, 'B')
       : string,
     encoding,
     opts
