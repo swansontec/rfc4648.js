@@ -1,7 +1,8 @@
 import buble from 'rollup-plugin-buble'
-import uglify from 'rollup-plugin-uglify'
 import filesize from 'rollup-plugin-filesize'
-const packageJson = require('./package.json')
+import uglify from 'rollup-plugin-uglify'
+
+import packageJson from './package.json'
 
 const bubleOpts = {
   transforms: {
@@ -11,17 +12,21 @@ const bubleOpts = {
 
 export default [
   {
-    dest: packageJson['main'],
-    entry: 'src/index.js',
-    format: 'cjs',
-    plugins: [buble(bubleOpts)],
-    sourceMap: true
+    input: 'src/index.js',
+    output: {
+      file: packageJson['main'],
+      format: 'cjs',
+      sourceMap: true
+    },
+    plugins: [buble(bubleOpts)]
   },
   {
-    dest: 'lib/index.min.js',
-    entry: 'src/index.js',
-    format: 'iife',
-    moduleName: 'rfc4648',
+    input: 'src/index.js',
+    output: {
+      file: 'lib/index.min.js',
+      format: 'iife',
+      name: 'rfc4648'
+    },
     plugins: [buble(bubleOpts), uglify(), filesize()]
   }
 ]
