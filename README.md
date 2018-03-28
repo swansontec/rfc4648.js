@@ -10,17 +10,16 @@ This library implements encoding and decoding for the data formats specified in 
 
 Each encoding has a simple API inspired by Javascript's built-in `JSON` object:
 
-    const { base32 } = require('rfc4648')
-    // or import { base32 } from 'rfc4648'
+    import { base32 } from 'rfc4648'
 
-    base32.parse('HELLO===') // -> [57, 22, 183]
-    base32.stringify([57, 22, 183]) // -> 'HELLO==='
+    base32.stringify([42, 121, 160]) // -> 'FJ42A==='
+    base32.parse('FJ42A===') // -> Uint8Array([42, 121, 160])
 
-The library has tree-shaking support, so tools like [rollup.js](https://rollupjs.org/) or [Webpack 2](https://webpack.js.org/) can automatically trim away any encodings you don't use.
+The library has tree-shaking support, so tools like [rollup.js](https://rollupjs.org/) or [Webpack 2+](https://webpack.js.org/) can automatically trim away any encodings you don't use.
 
 * Zero external dependencies
 * 100% test coverage
-* 0.8K minified + gzip (full library, no tree shaking)
+* 0.8K minified + gzip (can be even smaller with tree shaking)
 
 ## API details
 
