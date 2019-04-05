@@ -56,7 +56,7 @@ export function parse (string, encoding, opts = {}) {
   return out
 }
 
-export function stringify (data, encoding) {
+export function stringify (data, encoding, opts = {}) {
   const mask = (1 << encoding.bits) - 1
   let out = ''
 
@@ -80,8 +80,10 @@ export function stringify (data, encoding) {
   }
 
   // Add padding characters until we hit a byte boundary:
-  while ((out.length * encoding.bits) & 7) {
-    out += '='
+  if (opts.pad === undefined || opts.pad) {
+    while ((out.length * encoding.bits) & 7) {
+      out += '='
+    }
   }
 
   return out
