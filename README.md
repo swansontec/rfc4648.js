@@ -34,9 +34,11 @@ The library provides the following top-level modules:
 
 Each module exports a `parse` and `stringify` function.
 
-### const string = baseXX.stringify(data)
+### const string = baseXX.stringify(data, opts)
 
 Each `stringify` function takes array-like object of bytes and returns a string.
+
+If you pass the option `{ pad: false }` in the second parameter, the encoder will not output padding characters (`=`).
 
 ### const data = baseXX.parse(string, opts)
 

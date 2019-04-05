@@ -195,3 +195,9 @@ describe('base32', function () {
     )
   })
 })
+
+describe('base64url', function () {
+  it('should work without padding', function () {
+    assert.deepEqual(rfc4648.base64url.stringify([0x00], { pad: false }), 'AA')
+  })
+})

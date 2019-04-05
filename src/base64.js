@@ -9,6 +9,6 @@ export function parse (string, opts) {
   return codec.parse(string, encoding, opts)
 }
 
-export function stringify (data) {
-  return codec.stringify(data, encoding)
+export function stringify (data, opts) {
+  return codec.stringify(data, encoding, opts)
 }

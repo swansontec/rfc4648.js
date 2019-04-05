@@ -24,7 +24,7 @@ export function parse (string, encoding, opts = {}) {
   }
 
   // Allocate the output:
-  const out = new (opts.out || Uint8Array)((end * encoding.bits / 8) | 0)
+  const out = new (opts.out || Uint8Array)(((end * encoding.bits) / 8) | 0)
 
   // Parse the data:
   let bits = 0 // Number of bits currently in the buffer
@@ -56,7 +56,8 @@ export function parse (string, encoding, opts = {}) {
   return out
 }
 
-export function stringify (data, encoding) {
+export function stringify (data, encoding, opts = {}) {
+  const { pad = true } = opts
   const mask = (1 << encoding.bits) - 1
   let out = ''
 
@@ -80,8 +81,10 @@ export function stringify (data, encoding) {
   }
 
   // Add padding characters until we hit a byte boundary:
-  while ((out.length * encoding.bits) & 7) {
-    out += '='
+  if (pad) {
+    while ((out.length * encoding.bits) & 7) {
+      out += '='
+    }
   }
 
   return out
