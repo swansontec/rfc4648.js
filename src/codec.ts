@@ -1,4 +1,25 @@
-export function parse(string, encoding, opts = {}) {
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+export interface Encoding {
+  bits: number
+  chars: string
+  codes?: { [char: string]: number }
+}
+
+export interface ParseOptions {
+  loose?: boolean
+  out?: new (size: number) => { [index: number]: number }
+}
+
+export interface StringifyOptions {
+  pad?: boolean
+}
+
+export function parse(
+  string: string,
+  encoding: Encoding,
+  opts: ParseOptions = {}
+): Uint8Array {
   // Build the character lookup table:
   if (!encoding.codes) {
     encoding.codes = {}
@@ -24,7 +45,9 @@ export function parse(string, encoding, opts = {}) {
   }
 
   // Allocate the output:
-  const out = new (opts.out || Uint8Array)(((end * encoding.bits) / 8) | 0)
+  const out = new (opts.out || Uint8Array)(
+    ((end * encoding.bits) / 8) | 0
+  ) as Uint8Array
 
   // Parse the data:
   let bits = 0 // Number of bits currently in the buffer
@@ -56,7 +79,11 @@ export function parse(string, encoding, opts = {}) {
   return out
 }
 
-export function stringify(data, encoding, opts = {}) {
+export function stringify(
+  data: ArrayLike<number>,
+  encoding: Encoding,
+  opts: StringifyOptions = {}
+): string {
   const { pad = true } = opts
   const mask = (1 << encoding.bits) - 1
   let out = ''

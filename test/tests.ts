@@ -1,15 +1,21 @@
-/* global describe, it, require */
+/* global describe, it */
 
-const { expect } = require('chai')
-const {
-  base16,
-  base32,
-  base32hex,
-  base64,
-  base64url
-} = require('../lib/index.cjs.js')
+import { expect } from 'chai'
+import { base16, base32, base32hex, base64, base64url } from '../src/index'
 
-function parseAscii(string) {
+// Test for simple round-trips:
+type TestVector = [number[] | string, string]
+
+// Test for encoded string with errors:
+type ErrorTestVector =
+  | [string, string, number[]] // Strict fails, loose parses
+  | [string, string, string] // Both fail differently
+  | [string, string] // Both fail the same way
+
+/**
+ * Turns an ASCII string into a Uint8Array:
+ */
+function parseAscii(string: string): Uint8Array {
   const out = new Uint8Array(string.length)
   for (let i = 0; i < string.length; ++i) {
     out[i] = string.charCodeAt(i)
@@ -17,7 +23,10 @@ function parseAscii(string) {
   return out
 }
 
-function generateTests(codec, vectors) {
+/**
+ * Tests the provided codec's round-trip capabilities.
+ */
+function generateTests(codec: typeof base16, vectors: TestVector[]): void {
   for (const [data, text] of vectors) {
     it(`round-trips "${text}"`, function() {
       const expected =
@@ -28,12 +37,19 @@ function generateTests(codec, vectors) {
   }
 }
 
-function generateErrorTests(codec, vectors) {
+/**
+ * Tests the provided codec's error-handling capabilities.
+ */
+function generateErrorTests(
+  codec: typeof base16,
+  vectors: ErrorTestVector[]
+): void {
   for (const [text, error, loose] of vectors) {
     if (loose == null || typeof loose === 'string') {
       it(`rejects "${text}"`, function() {
+        const looseMessage = loose == null ? error : loose
         expect(() => codec.parse(text)).throws(error)
-        expect(() => codec.parse(text, { loose: true })).throws(loose || error)
+        expect(() => codec.parse(text, { loose: true })).throws(looseMessage)
       })
     } else {
       it(`loosely parses "${text}"`, function() {
