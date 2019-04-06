@@ -2,16 +2,20 @@
   "name": "rfc4648",
   "version": "1.2.0",
   "description": "Encoding and decoding for base64, base32, base16, and friends",
-  "license": "MIT",
   "keywords": [
+    "Uint8Array",
     "base16",
     "base32",
     "base32hex",
     "base64",
     "base64url",
-    "hex",
-    "Uint8Array"
+    "hex"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:swansontec/rfc4648.js.git"
+  },
+  "license": "MIT",
   "author": "William Swanson",
   "files": [
     "CHANGELOG.md",
@@ -20,10 +24,6 @@
   ],
   "main": "lib/index.cjs.js",
   "module": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:swansontec/rfc4648.js.git"
-  },
   "scripts": {
     "build": "buble -i src --o lib --no modules && rollup -c",
     "lint": "standard '*.js' 'src/**/*.js' 'test/**/*.js'",
