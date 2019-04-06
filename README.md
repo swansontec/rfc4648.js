@@ -62,7 +62,7 @@ base64.parse("AOk", { loose: true }); // No error
 The base32 codec will also fix common typo characters in loose mode:
 
 ```js
-base64.parse("He1l0==", { loose: true }); // Auto-corrects as 'HELLO==='
+base32.parse("He1l0==", { loose: true }); // Auto-corrects as 'HELLO==='
 ```
 
 ### Custom encodings
