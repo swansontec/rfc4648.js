@@ -27,11 +27,14 @@
   "scripts": {
     "build": "rimraf lib && rollup -c",
     "lint": "standard '*.js' 'src/**/*.js' 'test/**/*.js'",
-    "test": "npm run lint && rollup -c && nyc mocha"
+    "precommit": "npm run lint && npm test",
+    "prepare": "npm run build",
+    "pretest": "npm run build",
+    "test": "nyc mocha"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm run precommit"
     }
   },
   "devDependencies": {
