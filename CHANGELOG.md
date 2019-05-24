@@ -1,5 +1,9 @@
 # rfc4648
 
+## 1.2.1 (2019-05-24)
+
+- Update build & test infrastructure.
+
 ## 1.2.0 (2019-04-05)
 
 - Add an option to skip padding the `codec.stringify` output
