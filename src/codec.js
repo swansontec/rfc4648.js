@@ -1,4 +1,4 @@
-export function parse (string, encoding, opts = {}) {
+export function parse(string, encoding, opts = {}) {
   // Build the character lookup table:
   if (!encoding.codes) {
     encoding.codes = {}
@@ -56,7 +56,7 @@ export function parse (string, encoding, opts = {}) {
   return out
 }
 
-export function stringify (data, encoding, opts = {}) {
+export function stringify(data, encoding, opts = {}) {
   const { pad = true } = opts
   const mask = (1 << encoding.bits) - 1
   let out = ''

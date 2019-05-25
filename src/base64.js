@@ -5,10 +5,10 @@ const encoding = {
   bits: 6
 }
 
-export function parse (string, opts) {
+export function parse(string, opts) {
   return codec.parse(string, encoding, opts)
 }
 
-export function stringify (data, opts) {
+export function stringify(data, opts) {
   return codec.stringify(data, encoding, opts)
 }

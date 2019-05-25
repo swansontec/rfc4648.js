@@ -9,7 +9,7 @@ const {
   base64url
 } = require('../lib/index.cjs.js')
 
-function parseAscii (string) {
+function parseAscii(string) {
   const out = new Uint8Array(string.length)
   for (let i = 0; i < string.length; ++i) {
     out[i] = string.charCodeAt(i)
@@ -17,9 +17,9 @@ function parseAscii (string) {
   return out
 }
 
-function generateTests (codec, vectors) {
+function generateTests(codec, vectors) {
   for (const [data, text] of vectors) {
-    it(`round-trips "${text}"`, function () {
+    it(`round-trips "${text}"`, function() {
       const expected =
         typeof data === 'string' ? parseAscii(data) : Uint8Array.from(data)
       expect(codec.stringify(expected)).equals(text)
@@ -28,15 +28,15 @@ function generateTests (codec, vectors) {
   }
 }
 
-function generateErrorTests (codec, vectors) {
+function generateErrorTests(codec, vectors) {
   for (const [text, error, loose] of vectors) {
     if (loose == null || typeof loose === 'string') {
-      it(`rejects "${text}"`, function () {
+      it(`rejects "${text}"`, function() {
         expect(() => codec.parse(text)).throws(error)
         expect(() => codec.parse(text, { loose: true })).throws(loose || error)
       })
     } else {
-      it(`loosely parses "${text}"`, function () {
+      it(`loosely parses "${text}"`, function() {
         const expected = Uint8Array.from(loose)
         expect(() => codec.parse(text)).throws(error)
         expect(codec.parse(text, { loose: true })).deep.equals(expected)
@@ -45,7 +45,7 @@ function generateErrorTests (codec, vectors) {
   }
 }
 
-describe('base16', function () {
+describe('base16', function() {
   generateTests(base16, [
     ['', ''],
     ['f', '66'],
@@ -64,18 +64,18 @@ describe('base16', function () {
     ['00=', 'Invalid padding', [0x00]]
   ])
 
-  it('decodes lowercase characters', function () {
+  it('decodes lowercase characters', function() {
     const expected = Uint8Array.from([0xab, 0xcd, 0xef])
     expect(base16.parse('abcdef')).deep.equals(expected)
   })
 
-  it('works with plain arrays', function () {
+  it('works with plain arrays', function() {
     const expected = [0xab, 0xcd, 0xef]
     expect(base16.parse('abcdef', { out: Array })).deep.equals(expected)
   })
 })
 
-describe('base32', function () {
+describe('base32', function() {
   generateTests(base32, [
     // rfc4648:
     ['', ''],
@@ -116,14 +116,14 @@ describe('base32', function () {
     ['AAAAAAAA========', 'Invalid padding', [0, 0, 0, 0, 0]]
   ])
 
-  it('Fixes common typos in loose mode', function () {
+  it('Fixes common typos in loose mode', function() {
     expect(base32.parse('He1l0===', { loose: true })).deep.equals(
       base32.parse('HELLO===')
     )
   })
 })
 
-describe('base32hex', function () {
+describe('base32hex', function() {
   generateTests(base32hex, [
     // rfc4648:
     ['', ''],
@@ -145,7 +145,7 @@ describe('base32hex', function () {
   ])
 })
 
-describe('base64', function () {
+describe('base64', function() {
   generateTests(base64, [
     // rfc4648:
     ['', ''],
@@ -187,10 +187,10 @@ describe('base64', function () {
   ])
 })
 
-describe('base64url', function () {
+describe('base64url', function() {
   generateTests(base64url, [[[0xfb, 0xff], '-_8=']])
 
-  it('should work without padding', function () {
+  it('should work without padding', function() {
     expect(base64url.stringify([0x00], { pad: false })).equals('AA')
   })
 })
