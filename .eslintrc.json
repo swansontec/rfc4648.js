@@ -1,0 +1,7 @@
+{
+  "extends": ["standard-kit/lint"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

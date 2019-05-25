@@ -1,4 +1,5 @@
-/* global describe, it */
+/* global describe, it, require */
+
 const { expect } = require('chai')
 const {
   base16,

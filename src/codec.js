@@ -33,7 +33,7 @@ export function parse (string, encoding, opts = {}) {
   for (let i = 0; i < end; ++i) {
     // Read one character from the string:
     const value = encoding.codes[string[i]]
-    if (value === void 0) {
+    if (value === undefined) {
       throw new SyntaxError('Invalid character ' + string[i])
     }
 
