@@ -1,5 +1,9 @@
 # rfc4648
 
+## 1.3.0 (2019-09-25)
+
+- Port the library to TypeScript.
+
 ## 1.2.1 (2019-05-24)
 
 - Update build & test infrastructure.
