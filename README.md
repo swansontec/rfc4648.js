@@ -1,5 +1,8 @@
 # rfc4648.js
 
+[![Build Status](https://travis-ci.com/swansontec/rfc4648.js.svg?branch=master)](https://travis-ci.com/swansontec/rfc4648.js)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 This library implements encoding and decoding for the data formats specified in [rfc4648](https://tools.ietf.org/html/rfc4648):
 
 - base64
