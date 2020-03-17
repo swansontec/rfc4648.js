@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel'
 import filesize from 'rollup-plugin-filesize'
-import resolve from 'rollup-plugin-node-resolve'
+import resolve from '@rollup/plugin-node-resolve'
 import { uglify } from 'rollup-plugin-uglify'
 
 import packageJson from './package.json'
@@ -27,8 +27,8 @@ export default [
   {
     input: 'src/index.ts',
     output: [
-      { file: packageJson.module, format: 'esm', sourceMap: true },
-      { file: packageJson.main, format: 'cjs', sourceMap: true }
+      { file: packageJson.module, format: 'esm', sourcemap: true },
+      { file: packageJson.main, format: 'cjs', sourcemap: true }
     ],
     plugins: [resolve(resolveOpts), babel(babelOpts)]
   },
