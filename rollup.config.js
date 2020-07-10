@@ -1,6 +1,7 @@
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import filesize from 'rollup-plugin-filesize'
+import flowEntry from 'rollup-plugin-flow-entry'
 import { uglify } from 'rollup-plugin-uglify'
 
 import packageJson from './package.json'
@@ -30,7 +31,11 @@ export default [
       { file: packageJson.module, format: 'esm', sourcemap: true },
       { file: packageJson.main, format: 'cjs', sourcemap: true }
     ],
-    plugins: [resolve(resolveOpts), babel(babelOpts)]
+    plugins: [
+      resolve(resolveOpts),
+      babel(babelOpts),
+      flowEntry({ types: 'src/index.flow.js' })
+    ]
   },
   {
     input: 'src/index.ts',

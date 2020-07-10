@@ -1,6 +1,7 @@
 {
   "extends": [
     "standard-kit/prettier",
+    "standard-kit/prettier/flow",
     "standard-kit/prettier/typescript"
   ],
   "parserOptions": {
