@@ -17,14 +17,14 @@
   },
   "license": "MIT",
   "author": "William Swanson",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.js",
+  "types": "lib/src/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "lib/*",
     "README.md"
   ],
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.js",
-  "types": "lib/src/index.d.ts",
   "scripts": {
     "build": "rimraf lib && rollup -c && tsc",
     "format": "npm run lint -- --fix",
