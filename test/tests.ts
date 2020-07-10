@@ -1,6 +1,7 @@
 /* global describe, it */
 
 import { expect } from 'chai'
+
 import { base16, base32, base32hex, base64, base64url } from '../src/index'
 
 // Test for simple round-trips:
@@ -28,7 +29,7 @@ function parseAscii(string: string): Uint8Array {
  */
 function generateTests(codec: typeof base16, vectors: TestVector[]): void {
   for (const [data, text] of vectors) {
-    it(`round-trips "${text}"`, function() {
+    it(`round-trips "${text}"`, function () {
       const expected =
         typeof data === 'string' ? parseAscii(data) : Uint8Array.from(data)
       expect(codec.stringify(expected)).equals(text)
@@ -46,13 +47,13 @@ function generateErrorTests(
 ): void {
   for (const [text, error, loose] of vectors) {
     if (loose == null || typeof loose === 'string') {
-      it(`rejects "${text}"`, function() {
+      it(`rejects "${text}"`, function () {
         const looseMessage = loose == null ? error : loose
         expect(() => codec.parse(text)).throws(error)
         expect(() => codec.parse(text, { loose: true })).throws(looseMessage)
       })
     } else {
-      it(`loosely parses "${text}"`, function() {
+      it(`loosely parses "${text}"`, function () {
         const expected = Uint8Array.from(loose)
         expect(() => codec.parse(text)).throws(error)
         expect(codec.parse(text, { loose: true })).deep.equals(expected)
@@ -61,7 +62,7 @@ function generateErrorTests(
   }
 }
 
-describe('base16', function() {
+describe('base16', function () {
   generateTests(base16, [
     ['', ''],
     ['f', '66'],
@@ -80,18 +81,18 @@ describe('base16', function() {
     ['00=', 'Invalid padding', [0x00]]
   ])
 
-  it('decodes lowercase characters', function() {
+  it('decodes lowercase characters', function () {
     const expected = Uint8Array.from([0xab, 0xcd, 0xef])
     expect(base16.parse('abcdef')).deep.equals(expected)
   })
 
-  it('works with plain arrays', function() {
+  it('works with plain arrays', function () {
     const expected = [0xab, 0xcd, 0xef]
     expect(base16.parse('abcdef', { out: Array })).deep.equals(expected)
   })
 })
 
-describe('base32', function() {
+describe('base32', function () {
   generateTests(base32, [
     // rfc4648:
     ['', ''],
@@ -132,14 +133,14 @@ describe('base32', function() {
     ['AAAAAAAA========', 'Invalid padding', [0, 0, 0, 0, 0]]
   ])
 
-  it('Fixes common typos in loose mode', function() {
+  it('Fixes common typos in loose mode', function () {
     expect(base32.parse('He1l0===', { loose: true })).deep.equals(
       base32.parse('HELLO===')
     )
   })
 })
 
-describe('base32hex', function() {
+describe('base32hex', function () {
   generateTests(base32hex, [
     // rfc4648:
     ['', ''],
@@ -161,7 +162,7 @@ describe('base32hex', function() {
   ])
 })
 
-describe('base64', function() {
+describe('base64', function () {
   generateTests(base64, [
     // rfc4648:
     ['', ''],
@@ -203,10 +204,10 @@ describe('base64', function() {
   ])
 })
 
-describe('base64url', function() {
+describe('base64url', function () {
   generateTests(base64url, [[[0xfb, 0xff], '-_8=']])
 
-  it('should work without padding', function() {
+  it('should work without padding', function () {
     expect(base64url.stringify([0x00], { pad: false })).equals('AA')
   })
 })

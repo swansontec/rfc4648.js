@@ -1,6 +1,6 @@
-import babel from 'rollup-plugin-babel'
-import filesize from 'rollup-plugin-filesize'
+import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
+import filesize from 'rollup-plugin-filesize'
 import { uglify } from 'rollup-plugin-uglify'
 
 import packageJson from './package.json'

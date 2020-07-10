@@ -2,10 +2,10 @@
 
 import {
   Encoding,
-  ParseOptions,
-  StringifyOptions,
   parse,
-  stringify
+  ParseOptions,
+  stringify,
+  StringifyOptions
 } from './codec'
 
 const base16Encoding: Encoding = {
