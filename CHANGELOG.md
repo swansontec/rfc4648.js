@@ -1,5 +1,9 @@
 # rfc4648
 
+## 1.4.0 (2020-07-10)
+
+- Add Flow type definitions.
+
 ## 1.3.0 (2019-09-25)
 
 - Port the library to TypeScript.

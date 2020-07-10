@@ -24,6 +24,7 @@ The library has tree-shaking support, so tools like [rollup.js](https://rollupjs
 
 - Zero external dependencies
 - 100% test coverage
+- Built-in types for Typescript & Flow
 - 0.8K minified + gzip (can be even smaller with tree shaking)
 
 ## API details
