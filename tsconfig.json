@@ -3,8 +3,6 @@
     "declaration": true,
     "declarationDir": "lib",
     "emitDeclarationOnly": true,
-
-    "esModuleInterop": true,
     "strict": true
   },
   "exclude": ["node_modules", "lib"]

@@ -2,12 +2,13 @@ import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import filesize from 'rollup-plugin-filesize'
 import flowEntry from 'rollup-plugin-flow-entry'
-import { uglify } from 'rollup-plugin-uglify'
+import mjs from 'rollup-plugin-mjs-entry'
 
 import packageJson from './package.json'
 
 const extensions = ['.ts']
 const babelOpts = {
+  babelHelpers: 'bundled',
   babelrc: false,
   extensions,
   include: ['src/**/*'],
@@ -24,22 +25,17 @@ const babelOpts = {
 }
 const resolveOpts = { extensions }
 
-export default [
-  {
-    input: 'src/index.ts',
-    output: [
-      { file: packageJson.module, format: 'esm', sourcemap: true },
-      { file: packageJson.main, format: 'cjs', sourcemap: true }
-    ],
-    plugins: [
-      resolve(resolveOpts),
-      babel(babelOpts),
-      flowEntry({ types: 'src/index.flow.js' })
-    ]
-  },
-  {
-    input: 'src/index.ts',
-    output: { file: 'lib/index.min.js', format: 'iife', name: 'rfc4648' },
-    plugins: [resolve(resolveOpts), babel(babelOpts), uglify(), filesize()]
-  }
-]
+export default {
+  input: 'src/index.ts',
+  output: [
+    { file: packageJson.main, format: 'cjs' },
+    { file: packageJson.module, format: 'es' }
+  ],
+  plugins: [
+    resolve(resolveOpts),
+    babel(babelOpts),
+    flowEntry({ types: 'src/index.flow.js' }),
+    filesize(),
+    mjs({ includeDefault: true })
+  ]
+}

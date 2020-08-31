@@ -1,7 +1,7 @@
 # Build output:
-.nyc_output/
-coverage/
-lib/
+/.nyc_output/
+/coverage/
+/lib/
 
 # Package managers:
 node_modules/

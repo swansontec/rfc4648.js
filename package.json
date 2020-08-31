@@ -17,9 +17,16 @@
   },
   "license": "MIT",
   "author": "William Swanson",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.js",
-  "types": "lib/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "module": "./lib/rfc4648.js",
+  "types": "./lib/src/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "lib/*",
@@ -27,11 +34,13 @@
     "src/*"
   ],
   "scripts": {
-    "build": "rimraf lib && rollup -c && tsc",
+    "build.lib": "rollup -c",
+    "build.types": "tsc",
+    "clean": "rimraf lib",
     "fix": "npm run lint -- --fix",
     "lint": "eslint --ext .js,.ts .",
-    "precommit": "npm run lint && npm test && npm run build",
-    "prepare": "npm run build",
+    "precommit": "npm-run-all lint -p test build.*",
+    "prepare": "npm-run-all clean -p build.*",
     "test": "nyc mocha test/**/*.ts"
   },
   "husky": {
@@ -61,12 +70,14 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.5.3",
     "mocha": "^8.4.0",
+    "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "prettier": "^2.2.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.47.0",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-flow-entry": "^0.3.5",
+    "rollup-plugin-mjs-entry": "^0.1.1",
     "rollup-plugin-uglify": "^6.0.4",
     "sucrase": "^3.18.1",
     "typescript": "^4.1.2"
