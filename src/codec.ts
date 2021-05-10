@@ -45,7 +45,7 @@ export function parse(
   }
 
   // Allocate the output:
-  const out = new (opts.out || Uint8Array)(
+  const out = new (opts.out ?? Uint8Array)(
     ((end * encoding.bits) / 8) | 0
   ) as Uint8Array
 
