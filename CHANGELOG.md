@@ -1,5 +1,9 @@
 # rfc4648
 
+## 1.5.0 (2021-05-25)
+
+- Allow modern versions of Node to use named exports along with native modules support.
+
 ## 1.4.0 (2020-07-10)
 
 - Add Flow type definitions.
