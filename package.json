@@ -34,14 +34,18 @@
     "src/*"
   ],
   "scripts": {
-    "build.lib": "rollup -c",
-    "build.types": "tsc",
     "clean": "rimraf lib",
-    "fix": "npm run lint -- --fix",
-    "lint": "eslint --ext .js,.ts .",
-    "precommit": "npm-run-all lint -p test build.*",
-    "prepare": "husky install && npm-run-all clean -p build.*",
-    "test": "nyc mocha test/**/*.ts"
+    "fix": "eslint . --fix",
+    "lib": "rollup -c",
+    "lint": "eslint .",
+    "precommit": "lint-staged && npm-run-all types test",
+    "prepare": "npm-run-all clean -p lib types",
+    "test": "nyc mocha 'test/**/*.ts'",
+    "types": "tsc",
+    "verify": "npm-run-all lint types test"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
