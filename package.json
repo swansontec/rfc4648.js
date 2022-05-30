@@ -19,6 +19,7 @@
   "author": "William Swanson",
   "exports": {
     ".": {
+      "types": "./lib/src/index.d.ts",
       "import": "./lib/index.mjs",
       "require": "./lib/index.js"
     },
