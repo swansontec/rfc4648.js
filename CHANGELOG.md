@@ -1,5 +1,9 @@
 # rfc4648
 
+## 1.5.2 (2022-05-30)
+
+- fixed: Allow recent Typescript versions to find the type definitions.
+
 ## 1.5.1 (2022-01-04)
 
 - added: Include a license file in the package.
