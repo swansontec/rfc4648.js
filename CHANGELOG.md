@@ -2,7 +2,7 @@
 
 ## 1.5.2 (2022-05-30)
 
-- fixed: Allow recent Typescript versions to find the type definitions.
+- fixed: Allow Typescript 4.7+ to find the type definitions in "Node16" mode.
 
 ## 1.5.1 (2022-01-04)
 
