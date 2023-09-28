@@ -75,7 +75,7 @@
     "prettier": "^2.2.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.47.0",
-    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-flow-entry": "^0.3.5",
     "rollup-plugin-mjs-entry": "^0.1.1",
     "sucrase": "^3.18.1",
