@@ -2,7 +2,6 @@ import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import filesize from 'rollup-plugin-filesize'
 import flowEntry from 'rollup-plugin-flow-entry'
-import mjs from 'rollup-plugin-mjs-entry'
 
 import packageJson from './package.json'
 
@@ -35,7 +34,6 @@ export default {
     resolve(resolveOpts),
     babel(babelOpts),
     flowEntry({ types: 'src/index.flow.js' }),
-    filesize(),
-    mjs({ includeDefault: true })
+    filesize()
   ]
 }
