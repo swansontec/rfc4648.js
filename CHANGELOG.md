@@ -1,5 +1,11 @@
 # rfc4648
 
+## Unreleased
+
+## 1.5.3 (2022-10-27)
+
+- fixed: Adjust the Node.js packaging for greater compatibility bundlers and other tools.
+
 ## 1.5.2 (2022-05-30)
 
 - fixed: Allow Typescript 4.7+ to find the type definitions in "Node16" mode.
