@@ -6,7 +6,7 @@ import {
   ParseOptions,
   stringify,
   StringifyOptions
-} from './codec'
+} from './codec.js'
 
 const base16Encoding: Encoding = {
   chars: '0123456789ABCDEF',
