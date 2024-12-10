@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.5.4 (2024-12-10)
+
+- fixed: Merge everything into a single source file, to avoid import errors.
+
 ## 1.5.3 (2022-10-27)
 
 - fixed: Adjust the Node.js packaging for greater compatibility bundlers and other tools.

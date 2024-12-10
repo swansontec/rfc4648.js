@@ -1,6 +1,6 @@
 {
   "name": "rfc4648",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Encoding and decoding for base64, base32, base16, and friends",
   "keywords": [
     "Uint8Array",
